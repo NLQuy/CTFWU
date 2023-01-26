@@ -1,0 +1,7 @@
+- run chương trình ta có được phần đầu của flag là: KCSC{
+- ![image](https://user-images.githubusercontent.com/113702087/212824711-3f1166e8-bc84-435c-9c91-6352926bdc3a.png)
+- dùng ida, tại main ta thấy phần 2 của flag là: 4_t1ny_tr34sur3
+- ![image](https://user-images.githubusercontent.com/113702087/212824907-ecc3f6e1-1479-4e98-a74c-77a1d8205ecc.png)
+- chuyển sang text view, bấm atl + t để search với từ khóa Part 3 ta có phần 3 flag là: _27651d2df78e1998}
+- ![image](https://user-images.githubusercontent.com/113702087/212825289-3a2fe5e2-bb23-41ed-8387-cff963a80d99.png)
+- ghép lại ta có flag: KCSC{4_t1ny_tr34sur3_27651d2df78e1998}
