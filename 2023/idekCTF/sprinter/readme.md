@@ -9,13 +9,14 @@
 
 **2. Ý tưởng**
   - Tôi sẽ thay đổi saverbp thành 1 địa chỉ nằm trong khoảng buf và saverip thành leave ; ret lúc này rsp sẽ thành (rbp + 8) và vì nằm trong khoảng buf nên ta có thể ghi các ROP vào
-  - Do mỗi khi thực hiện fmt thì các dữ liệu đều được ghi vào đó khiến việc setup địa chỉ trong stack khá khó khăn vì có thể bị các dữ liệu mới ghi đè vào
+  - Do mỗi khi thực hiện fmt thì các dữ liệu đều được ghi vào đó khiến việc setup địa chỉ trong stack khá khó khăn vì có thể bị các dữ liệu mới ghi đè vào, cũng như chỉ có thể ghi được 1 byte và không quá lớn
   - ![image](https://user-images.githubusercontent.com/113702087/215037508-00decbc8-7d7e-4c05-bd12-bc4a797bb640.png)
   - Tôi đã test thử '%20c%24$n'
   - ![image](https://user-images.githubusercontent.com/113702087/215037561-7a564f07-c5ef-4972-818a-950e0c71068b.png)
   - Chúng ta có thể thấy sự thay đổi của stack
-  - Byte của saverip cần chuyển là 0xad làm tròn sẽ là 0xb0, đây sẽ là byte lớn nhất và được ghi sau cùng của fmt, từ (buf + 176) trở đi ta có thể ghi các địa chỉ cần ghi đè và ROP
-  - Ở đây tôi chỉ ghi 2 địa chỉ do đó các ROP sẽ bắt đầu ghi từ (buf + 192) -> saverbp mới là (buf + 184) -> ghi được 8 stack, khá ít nhưng thế cũng là đủ
+  - Byte của saverip cần chuyển là 0xad = 173, đây sẽ là byte lớn nhất vì nếu lớn hơn thì số lượng gadget càng ít, từ (buf + 0xad) các dữ liệu trên stack sẽ không bị ghi đè
+  -  Để địa chỉ nguyên vẹn ta sẽ làm tròn thành 0xb0, từ (buf + 0xb0) trở đi ta có thể ghi các địa chỉ cần ghi đè và ROP
+  - Ở đây tôi chỉ ghi 2 địa chỉ do đó các ROP sẽ bắt đầu ghi từ (buf + 0xc0) -> saverbp mới là (buf + 0xb8) -> ghi được 8 stack, khá ít nhưng thế cũng là đủ
 
 **3. Exploit**
   - **leak địa chỉ buf và tính cách giá trị cho fmt**
