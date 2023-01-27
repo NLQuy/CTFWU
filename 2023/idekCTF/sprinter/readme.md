@@ -6,6 +6,7 @@
   - Sau khi debug vài lần thì thấy rằng ```'%6c' + b'\x00'*6' + fmt'``` thì có thể thực thi fmt được với fmt có %n được setup sẵn
   - ![image](https://user-images.githubusercontent.com/113702087/214909361-7d68a056-02bf-43b9-9ade-38e12a00aea0.png)
   - ![image](https://user-images.githubusercontent.com/113702087/214909428-029d364d-396a-441c-a476-10e5d81b1aab.png)
+
 **2. Ý tưởng**
   - Tôi sẽ thay đổi saverbp thành 1 địa chỉ nằm trong khoảng buf và saverip thành leave ; ret lúc này rsp sẽ thành (rbp + 8) và vì nằm trong khoảng buf nên ta có thể ghi các ROP vào
   - Do mỗi khi thực hiện fmt thì các dữ liệu đều được ghi vào đó khiến việc setup địa chỉ trong stack khá khó khăn vì có thể bị các dữ liệu mới ghi đè vào
@@ -15,6 +16,7 @@
   - Chúng ta có thể thấy sự thay đổi của stack
   - Byte của saverip cần chuyển là 0xad làm tròn sẽ là 0xb0, đây sẽ là byte lớn nhất và được ghi sau cùng của fmt, từ (buf + 176) trở đi ta có thể ghi các địa chỉ cần ghi đè và ROP
   - Ở đây tôi chỉ ghi 2 địa chỉ do đó các ROP sẽ bắt đầu ghi từ (buf + 192) -> saverbp mới là (buf + 184) -> ghi được 8 stack, khá ít nhưng thế cũng là đủ
+
 **3. Exploit**
   ```
   r.recvuntil(b'at ')
