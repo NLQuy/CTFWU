@@ -10,6 +10,7 @@
   - Để malloc được địa chỉ đó phải có size, thật may ta có địa chỉ 0x40403d phù hợp với điều này
   - ![image](https://user-images.githubusercontent.com/113702087/218492785-733857f6-1078-49a9-9415-61b616665249.png)
   - Tuy nhiên sau khi đưa 0x40403d, vì có dữu liệu bên trong nên đã có 1 chunk ảo sinh ra do đó không thể malloc với size 0x70. Vậy nên ta sẽ tạo 1 chunk fake với size 0x70 rồi free nó như vậy mới có thể malloc vào 0x7ffff7dd1afd và thay đổi được malloc_hook. Fake chunk được chọn là 0x404050 ta sẽ cần thay đổi 0x404048 = 0x71 và nextsize của nó là 0x4040b8 != 0 ở đây tôi chọn 0x101
+
 **2. Khai thác**
   - sử dụng uaf để malloc vào 0x40403d và thực hiện leak libc
   ```
