@@ -1,4 +1,4 @@
-**1.Find bug
+**1.Find bug**
   - ![image](https://user-images.githubusercontent.com/113702087/220030510-859dae24-8668-41e8-9bde-a9f9eaab5c06.png)
   - PIE và Fortify tắt.
   - ![image](https://user-images.githubusercontent.com/113702087/220022145-4c49d73e-b46c-4791-91fe-aef24fdd12c1.png)
@@ -9,6 +9,7 @@
   - ta có thể thấy rằng khi tại hàm Malloc() nó thực hiện read_input(ptr, uint(size - 16)) nếu size < 16 thì có thể read với size lớn gây lỗi heap overflow.
   - Dựa vào các lỗi trên ta có thể leak libc = cách đưa addr libc vào tcache và giải phóng name lúc đó name -> libc, lúc này ta dùng info để leak libc ra. Khi có libc thì có thể overwrite free_hook thành system
   - ta sẽ chọn địa chỉ name+16 là fake chunk và libc là stderr
+
 **2. Exploit**
  # Leak libc
   - Để đưa libc và fakechunk về cùng 1 chunk thì ta cần control size = 0x90 của chunk, với fakechunk thì khá dễ vì ta có thể control nó bằng cách nhập từ name
