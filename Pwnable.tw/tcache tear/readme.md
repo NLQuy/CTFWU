@@ -11,7 +11,7 @@
   - ta sẽ chọn địa chỉ name+16 là fake chunk và libc là stderr
 
 **2. Exploit**
- # Leak libc
+ ### Leak libc
   - Để đưa libc và fakechunk về cùng 1 chunk thì ta cần control size = 0x90 của chunk, với fakechunk thì khá dễ vì ta có thể control nó bằng cách nhập từ name
   - Tạo 4 chunk và giải phóng nó.
   ```
