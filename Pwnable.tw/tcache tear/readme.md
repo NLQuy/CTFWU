@@ -15,7 +15,7 @@
   - Để đưa libc và fakechunk về cùng 1 chunk thì ta cần control size = 0x90 của chunk, với fakechunk thì khá dễ vì ta có thể control nó bằng cách nhập từ name
   - `r.sendafter(b'Name', b'\x41'*8 + p64(0x91))` tạo size cho fakechunk
   - Tạo 4 chunk và giải phóng nó.
-  ```
+  ```python
   malloc(size_, b'a')
   freeandinfo(b'2')
   freeandinfo(b'2')
