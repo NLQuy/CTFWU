@@ -27,7 +27,7 @@
 | xxxxxx | xxxxxxx | xxxxxxx |
   - ta sẽ thực hiện chồng chéo 2 chunk bằng cách thay đổi size của chunk phía trên thành 0x61, lúc này chunk ban đầu sẽ là 2 khối chunk ban đầu, tuy nhiên chunk thứ 2 vẫn còn đó và ta vẫn có thể sử dụng nó
 ### II. Unsafe Unlink
-**1. Giới thiệu
+**1. Giới thiệu**
   - Đây là một kỹ thuật khiến fd_nextsize trỏ vào chunk đó thông qua việc thực hiện hàm unlink. ( đại loại là vậy =)) )
   - Việc này sẽ dẫn tới ghi đề các giá trị trong chunk đó, với kỹ thuật này thường sẽ tấn công vào nơi lưu con trỏ heap (thường là bss) khiến nó trỏ vào vùng phía trên của nó.
 
