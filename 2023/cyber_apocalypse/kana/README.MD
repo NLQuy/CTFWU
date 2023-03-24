@@ -56,7 +56,7 @@
 
  - ![image-20230324143040413](./assets/image-20230324143040413.png)
 
-**2.Exploit**
+**2. Khai thác**
 
  - ```python
    new_kana(b'a'*0x430)
