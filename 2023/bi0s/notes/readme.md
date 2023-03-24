@@ -30,7 +30,7 @@
   - ![image](https://user-images.githubusercontent.com/113702087/214772095-f1797e73-84f9-4c6d-8430-97636403537b.png)
   - vậy là tôi có thể control được savedrip rồi và thực thi srop execve('/bin/sh', 0, 0)
 
-**2. Exploit
+**2. Exploit**
  ```
  binsh_off = 0x274251
 libc_off = 0x270041
