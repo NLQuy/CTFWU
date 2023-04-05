@@ -88,3 +88,4 @@ shell += rop
   - Ta sẽ gửi file ảnh lên `web` và chờ kết quả
   - ![image](https://user-images.githubusercontent.com/113702087/230027418-d7f1184e-a457-4d42-97e4-ae59028f615f.png)
   - ![image](https://user-images.githubusercontent.com/113702087/230027932-bc1f95db-6601-45f8-b848-4a508c11b3ba.png)
+  - Lưu ý `script` này chỉ sài với `ngrok`
