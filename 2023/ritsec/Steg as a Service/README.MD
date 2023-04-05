@@ -7,7 +7,7 @@
   - Dễ dàng thấy điểm khác nhau tại vòng `for` khi điều kiện lặp ở file lỗi là `<= height` trong khi ở file vá là `< height`. Điều này có thể dẫn đến các lỗi như `overflow`, `out of bound`, ...
   - ![image](https://user-images.githubusercontent.com/113702087/230006389-e6491c26-0bc8-490d-971b-7c86ec58d04c.png)
   - Trong hàm này nó sẽ đọc dữ liệu từ `file` lượng byte tối đa đọc được phụ thuộc vào `height` và `linelength`, tổng lượng byte đọc được sẽ lưu vào `numread` tuy nhiên do `<=` nên `numread` sẽ vượt quá `height*linelength`. Mình sẽ dùng `x` của `ida` để xem `numread` được sử dụng ở đâu.
-  - Cho ai thắc mắc thì `height` và `linelength` là chiều rộng và chiều dài của file và nó được đọc từ trường `header` của file thông qua hàm `BmpFile::readheaders()` vậy nên thêm bao nhiêu dữ liệu vào thì giá trị của chúng luôn không đổi.
+  - Cho ai thắc mắc thì `height` và `linelength` là chiều rộng và chiều dài của file và nó được đọc từ trường `header` của file thông qua hàm `BmpFile::readheaders()` vậy nên thêm bao nhiêu dữ liệu vào file (miễn không đụng vào header file) thì giá trị của chúng luôn không đổi.
   - ![image](https://user-images.githubusercontent.com/113702087/230009548-865d05a9-9daa-4e8b-9016-78001dc91068.png)
   - ![image](https://user-images.githubusercontent.com/113702087/230009377-c6ed3fd2-5264-40b9-a966-305c34faf26f.png)
   - Sau khi `readdata` nó sẽ thực hiện `getdata` nơi sẽ gọi `getheaders`. Trong `getheaders` nó thực hiện cấp phát bằng `alloca` trên stack bằng `height*linelength` nhưng nó lại dùng `memcpy(&v3, a1, (unsigned int)numread)` để copy dữ liệu đọc được từ file vào stack với size là `numread`, như đã nói ở trên `numread` có thể > `height*linelength` do đó tại đây nó sẽ gây lỗi `overflow`.
