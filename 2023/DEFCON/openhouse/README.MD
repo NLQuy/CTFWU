@@ -150,7 +150,7 @@
 
 - ![image-20230530013920054](./assets/image-20230530013920054.png)
 
-- Để cho chắc ăn mình ta in `asm` của `libc_write` trên `server` và decode lại cho chắc.
+- Để cho chắc ăn mình in `asm` của `libc_write` trên `server` và decode lại cho chắc.
 
 - Dựa vào đoạn trên ta có sẵn `mov edx, [esp+0x28]`,  `int 0x80` cộng thêm `pop ebx ; ret` từ `binary` với `ecx = 0` sẵn thì ta chỉ cần tìm cách setup `eax` nữa là xong.
 
