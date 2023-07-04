@@ -497,5 +497,5 @@
   r.interactive()
   ```
 
-- ![image-20230704174523376](/home/chinokafuu/CTFWU/2023/KMACTF/Simulation/attachment/assets/image-20230704174523376.png)
+- ![image-20230704174523376](./assets/image-20230704174523376.png)
 
