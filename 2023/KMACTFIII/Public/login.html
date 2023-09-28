@@ -1,0 +1,52 @@
+<html>
+<head><title>Login</title></head>
+<body> 
+    <h1>Login</h1>
+    <!-- login box -->
+    <table>
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" name="username" required></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" name="password" required></td>
+        </tr>
+    </table>
+    <!-- login button -->
+    <!-- when press button, run js script -->
+    <button onclick="login()">Login</button>
+
+
+</body>
+
+<script>
+    function delCookie(name)
+    {  
+        var exp = new Date();  
+        exp.setTime(exp.getTime() - 10000);  
+        document.cookie = name + "=del;path=/;expires=" + exp.toGMTString();  
+    }
+
+    // login function
+    function login(){
+        //remove all old cookies
+        
+        delCookie("usr");
+        delCookie("pwd");
+        // check if hash cookie exists
+        if(document.cookie.indexOf("hash") != -1){
+            //remove hash cookie
+            delCookie("hash");
+        }
+        //get username and password
+        var username = document.getElementsByName("username")[0].value;
+        var password = document.getElementsByName("password")[0].value;
+        //set cookie
+        document.cookie = "usr=" + username;
+        document.cookie = "pwd=" + password;
+        //redirect to home page
+        window.location.href = "/cgi-bin/adder?1&2";
+    }
+</script>
+</html>

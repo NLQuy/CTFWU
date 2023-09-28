@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>KCSC Members</title>
+	<link rel="icon" href="https://kcsc-club.github.io/images/1.jpg" type="image/x-icon">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<form method="post" class="w3-container w3-pale-blue w3-display-middle w3-round-xlarge w3-border w3-padding-large">
+		<h2 class="w3-center">Admin Panel</h2>
+		<label class="w3-margin-bottom">Username</label>
+		</br>
+		<input class="w3-input w3-round-large" type="text" name="username" size="30"/>
+		</br>
+		<label>Password</label>
+		</br>
+		<input class="w3-input w3-round-large" type="text" name="password"/>
+		</br>
+		<input type="submit" value="Login" class="w3-button w3-green w3-hover-aqua w3-right w3-round-xlarge"/>
+		</br>
+		</br>
+		</br>
+		{% if output %}
+		<div class="w3-center">{{ output }}</div>
+		{% endif %}
+	</form>
+</body>
+</html>

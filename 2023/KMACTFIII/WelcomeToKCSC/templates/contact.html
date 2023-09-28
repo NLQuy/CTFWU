@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>KCSC Members</title>
+		<link rel="icon" href="https://kcsc-club.github.io/images/1.jpg" type="image/x-icon">
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body class="w3-light-grey">
+		<div class="w3-sidebar w3-bar-block" style="width:25%">
+			<a href="/" class="w3-bar-item w3-button w3-border-bottom">Trang chủ</a>
+			<a href="/contact" class="w3-bar-item w3-button  w3-border-bottom w3-light-blue">Đóng góp ý kiến</a>
+			<br>
+			<br>
+			<a href="https://www.facebook.com/kmase.club" class="w3-bar-item w3-button w3-border-bottom w3-border-top">Theo dõi</a>
+		</div>
+
+		<div class="w3-container" style="margin-left:25%">
+			<form class="w3-container w3-margin" id="input-form" method=post>
+				<div class="w3-padding-32">
+					<label class="w3-serif" style="font-size: 20px;">Họ tên</label>
+					<input type=text name="name" class="w3-input" required>
+				</div>
+				<div style="padding-bottom: 50px">
+					<label class="w3-serif" style="font-size: 20px; padding-top: 50px;">Ý kiến của bạn</label>
+					<br>
+					<textarea form="input-form" name="advice" required></textarea>
+					<br>
+				</div>
+				<input type=submit class="w3-button w3-right w3-border w3-light-green" value="Gửi">
+			</form>
+			{% if output %}
+			<div class="w3-panel w3-green w3-margin">
+				<p class="w3-padding-small">{{ output }}</p>
+			</div>
+			{% endif %}
+		</div>
+	</body>
+</html>

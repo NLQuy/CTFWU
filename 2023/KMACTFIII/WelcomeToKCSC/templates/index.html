@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>KCSC Members</title>
+		<link rel="icon" href="https://kcsc-club.github.io/images/1.jpg" type="image/x-icon">
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body class="w3-light-grey">
+		<div class="w3-sidebar w3-bar-block" style="width:25%">
+			<a href="/" class="w3-bar-item w3-button  w3-border-bottom w3-light-blue">Trang chủ</a>
+			<a href="/contact" class="w3-bar-item w3-button w3-border-bottom">Đóng góp ý kiến</a>
+			<br>
+			<br>
+			<a href="https://www.facebook.com/kmase.club" class="w3-bar-item w3-button w3-border-bottom w3-border-top">Theo dõi</a>
+		</div>
+
+		<div class="w3-container w3-center" style="margin-left:25%">
+			<h1 class="w3-serif" style="color: #599486;">@FORMER</h1>
+			<div class=w3-row>
+			{% for i in range(1, card_len+1) %}
+				<div class="w3-third w3-padding">
+					<div class="w3-card w3-white w3-hover-shadow">
+						<h3 class="w3-serif w3-padding" style="color: #599486; font-weight: 1000">{{ cards[i-1]['name'] }}</h3>
+						<p class="w3-panel w3-serif w3-padding">&#10077;{{ cards[i-1]['quote'] }}&#10078;</p>
+					</div>
+				</div>
+				{% if i%3==0 %}
+			</div>
+			<div class=w3-row>
+				{% endif %}
+			{% endfor %}
+			</div>
+		</div>
+	</body>
+</html>
